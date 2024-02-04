@@ -6,7 +6,9 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 
 import java.io.IOException;
-import java.util.Map;
+import java.lang.annotation.Documented;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -18,17 +20,25 @@ public class Main {
         String url = in.nextLine();
 
         System.out.println("Digite a sequência de palavras chave a ser pesquisada: ");
-        String frasecomposta = in.nextLine();
+        String fraseComposta = in.nextLine();
 
         HttpEntity body = conectaUrl(url);
 
-        System.out.println(body);
+        List<String> frasesDecompostas = decompoeFrase(fraseComposta);
+
 
     }
 
+    /***
+     * Objetivo: Acessar Determinada url e obter o conteúdo em texto da página citada
+     * Entradas: Url em formato String
+     * Saida: Conteúdo HTML da página web em formato de String
+     ***/
     public static HttpEntity conectaUrl(String url){
+
         HttpClient conexao = HttpClients.createDefault();
         HttpGet getConexao = new HttpGet(url);
+
         try{
             HttpResponse response = conexao.execute(getConexao);
 
@@ -53,5 +63,22 @@ public class Main {
             throw new RuntimeException(e);
         }
 
+    }
+
+    /***
+     * Objetivo: Decompor a frase inserida pelo usuário, de forma aobter os elementos a serem procurados na página web
+     * Entradas: Frase composta em formato de String
+     * Saida: ArrayList de String, contendo os elementos da frase decomposta
+     ***/
+    public static List<String> decompoeFrase(String frase){
+        String[] frases = frase.split(" ");
+        List<String> frasesDecompostas = new ArrayList<>();
+        frasesDecompostas.add(frase);
+        if(frasesDecompostas.size() != 1){
+            for(String f : frases){
+                frasesDecompostas.add(f);
+            }
+        }
+        return frasesDecompostas;
     }
 }
