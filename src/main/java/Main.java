@@ -101,6 +101,7 @@ public class Main {
      * Entradas: List de String com os elementos da frase decomposta e o conteúdo do body da pagina pesquisada
      * Saida: Void, imprimindo a quantidade de repetições das frases encontradas na pagina
      ***/
+    // todo: Revisar método de busca das palavras
     public static void obterQuantidadeDeRepeticoesDaFrase(List<String> fraseDecomposta, String paginaWeb){
         Map<String, Integer> relacaoFraseQuantidade = new HashMap<>();
         fraseDecomposta.stream().forEach(frase -> {
