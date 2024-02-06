@@ -14,3 +14,4 @@ Descrição dos métodos e suas funcionalidades:
 - decompoeFrase(String frase): Recebe uma frase como Entrada e retorna uma List com a frase decomposta por palavras e a frase inteira
 - obterQuantidadeDeRepeticoesDaFrase(List<String> listaSubString, String  string): Conta a quantidade de ocorrência de cada subtring da lista na String de referência, no caso, a página web. Para realizar a contagem, foram utilizadas das Regulars Expressions com o Pattern e Matcher.
 
+### OBS: O CASE SENSITIVE ESTÁ ATIVADO NO CÓDIGO.
