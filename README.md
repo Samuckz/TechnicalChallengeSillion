@@ -1,6 +1,6 @@
 ## DESAFIO SITUACIONAL SILLION TECHNOLOGIES
 
-Este repositório tem como objwtivo versionar o código utlizado para realizar um desafio técnico da empresa Sillion. Ele consiste em um código que faz o web scraping em uma página através de uma requisição http e busca por um conjunto de palavras inseridas pelo usuário. Para realizar, foram utilizadas as seguintes tecnologias:
+Este repositório tem como objetivo versionar o código utilizado para realizar um desafio técnico da empresa Sillion. Ele consiste em um código que faz o web scraping em uma página através de uma requisição http e busca por um conjunto de palavras inseridas pelo usuário. Para realizar, foram utilizadas as seguintes tecnologias:
 - Java 8
 - Bibliotecas:
   - Http Client
