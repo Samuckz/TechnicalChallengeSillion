@@ -66,7 +66,7 @@ public class Main {
         try{
             String content = EntityUtils.toString(corpoResposta, StandardCharsets.UTF_8);
             Document document = Jsoup.parse(content);
-            String body = document.text();
+            String body = document.body().text();
             return body;
 
         } catch (IOException ex){
