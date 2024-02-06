@@ -10,7 +10,7 @@ Este repositório tem como objetivo versionar o código utilizado para realizar 
 Descrição dos métodos e suas funcionalidades:
 
 - conectaUrl(String url): Este método tem como objetivo obter o conteúdo de um link especificado pelo usuário, retornando um objeto HttpEntity
-- getBodyHtml(HttpEntity conexao): Ao receber um objeto do tipo HttpEntity, este método acessa a tag body do html da página e retorna o innerHtml do elemento
+- getBodyHtml(HttpEntity conexao): Ao receber um objeto do tipo HttpEntity, este método utiliza da biblioteca JSoup para acessar a tag body do html da página e retorna o innerHtml do elemento
 - decompoeFrase(String frase): Recebe uma frase como Entrada e retorna uma List com a frase decomposta por palavras e a frase inteira
-- obterQuantidadeDeRepeticoesDaFrase(List<String> listaSubString, String  string): Conta a quantidade de ocorrência de cada subtring da lista na String de referência, no caso, a página web.
+- obterQuantidadeDeRepeticoesDaFrase(List<String> listaSubString, String  string): Conta a quantidade de ocorrência de cada subtring da lista na String de referência, no caso, a página web. Para realizar a contagem, foram utilizadas das Regulars Expressions com o Pattern e Matcher.
 
