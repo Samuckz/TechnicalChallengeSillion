@@ -1,4 +1,3 @@
-import org.apache.commons.lang.StringUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -11,27 +10,30 @@ import org.jsoup.nodes.Document;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Main {
     public static void main(String[] args) throws IOException {
 
         Scanner in = new Scanner(System.in);
-        System.out.println("Digite a url usada como referência: ");
+        System.out.println("Digite a url usada como referencia: ");
         String url = in.nextLine();
-        System.out.println("Digite a sequência de palavras chave a ser pesquisada: ");
+        System.out.println("Digite a sequencia de palavras chave a ser pesquisada: ");
         String fraseComposta = in.nextLine();
 
         HttpEntity conexao = conectaUrl(url);
         String body = getBodyHtml(conexao);
         List<String> frasesDecompostas = decompoeFrase(fraseComposta);
+
         obterQuantidadeDeRepeticoesDaFrase(frasesDecompostas, body);
 
     }
 
     /***
-     * Objetivo: Acessar determinada url e obter o conteúdo em texto da página citada
+     * Objetivo: Acessar determinada url e obter o conteúdo da url fornecida
      * Entradas: Url em formato String
-     * Saida: Conteúdo HTML da página web em formato de String
+     * Saida: Conteúdo HTML da página web em formato HttpEntity
      ***/
     public static HttpEntity conectaUrl(String url){
 
@@ -45,11 +47,6 @@ public class Main {
                 throw new RuntimeException("Página não encontrada");
             }
 
-            // Obtendo o código de status da resposta
-            int statusCode = response.getStatusLine().getStatusCode();
-            System.out.println("Status Code: " + statusCode);
-
-            // Obtendo o conteúdo da resposta, se houver
             HttpEntity corpoResposta = response.getEntity();
 
             return corpoResposta;
@@ -69,7 +66,7 @@ public class Main {
         try{
             String content = EntityUtils.toString(corpoResposta, StandardCharsets.UTF_8);
             Document document = Jsoup.parse(content);
-            String body = document.body().text();
+            String body = document.text();
             return body;
 
         } catch (IOException ex){
@@ -78,12 +75,12 @@ public class Main {
     }
 
     /***
-     * Objetivo: Decompor a frase inserida pelo usuário, de forma aobter os elementos a serem procurados na página web
+     * Objetivo: Decompor a frase inserida pelo usuário, de forma a obter os elementos que serão procurados na página web
      * Entradas: Frase composta em formato de String
      * Saida: ArrayList de String, contendo os elementos da frase decomposta
      ***/
     public static List<String> decompoeFrase(String frase){
-        String[] frases = frase.split(" ");
+        String[] frases = frase.split("\\s+");
         List<String> frasesDecompostas = new ArrayList<>();
         frasesDecompostas.add(frase);
         if(frases.length != 1){
@@ -101,16 +98,25 @@ public class Main {
      * Entradas: List de String com os elementos da frase decomposta e o conteúdo do body da pagina pesquisada
      * Saida: Void, imprimindo a quantidade de repetições das frases encontradas na pagina
      ***/
-    // todo: Revisar método de busca das palavras
     public static void obterQuantidadeDeRepeticoesDaFrase(List<String> fraseDecomposta, String paginaWeb){
         Map<String, Integer> relacaoFraseQuantidade = new HashMap<>();
         fraseDecomposta.stream().forEach(frase -> {
-            Integer qnt = StringUtils.countMatches(paginaWeb, frase);
+
+            int qnt = 0;
+            Pattern padrao = Pattern.compile("\\b" + frase + "\\b");
+            Matcher matcher = padrao.matcher(paginaWeb);
+
+            while(matcher.find()){
+                qnt++;
+            }
+
+
             relacaoFraseQuantidade.put(frase, qnt);
+
         });
 
         relacaoFraseQuantidade.forEach((frase, quantidade) -> {
-            System.out.println(String.format("Frase: %s \nQuantidade: %d", frase, quantidade));
+            System.out.println(String.format("'%s' => repete %d vezes", frase, quantidade));
         });
 
     }
