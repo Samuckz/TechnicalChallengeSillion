@@ -51,8 +51,8 @@ public class Main {
 
             return corpoResposta;
 
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        } catch (IOException ex) {
+            throw new RuntimeException("Erro ao realizar a conversão:\n" + ex.getMessage(), ex);
         }
 
     }
@@ -121,4 +121,5 @@ public class Main {
         });
 
     }
+
 }
