@@ -81,6 +81,7 @@ public class Main {
      ***/
     public static List<String> decompoeFrase(String frase){
         String[] frases = frase.split("\\s+");
+
         List<String> frasesDecompostas = new ArrayList<>();
         frasesDecompostas.add(frase);
         if(frases.length != 1){
